@@ -41,17 +41,17 @@ public ActionResult<User>GetOneUser(int id)
 public IActionResult InsertNewUser(User user)
 {
     UserDataAccess.SaveNewUser(user);
-    return OK(new {message="User created"});
+    return Ok(new {message="User created"});
 }
 
 [Route("{id}")]
 [HttpDelete]
 [EnableCors()]
 
-public ActionResult<User>DeleteOneUser(int id)
+public IActionResult DeleteOneUser(int id)
 {
-    UserDataAccess.deleteUserById(id);
-    return OK(new { message="User deleted"});
+    UserDataAccess.DeleteUserById(id);
+    return Ok(new { message="User deleted"});
 }
 }
 

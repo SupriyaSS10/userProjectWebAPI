@@ -14,6 +14,8 @@ public class UserDataAccess
 
         try
         {
+
+            con.Open();
             string query = "select * from users";
             DataSet ds = new DataSet();
             MySqlCommand cmd = new MySqlCommand(query, con);
@@ -53,7 +55,7 @@ public class UserDataAccess
             con.Open();
             string query = "select * from users where userid=" + id;
             MySqlCommand command = new MySqlCommand(query, con);
-        MySqlDataReader reader = command.ExecuteReader();
+            MySqlDataReader reader = command.ExecuteReader();
 
             if (reader.Read())
             {
@@ -79,46 +81,49 @@ public class UserDataAccess
         }
         return user;
     }
-public static void SaveNewUser(User user)//User=Return type,user=created object now
-{
-MySqlConnection con= new MySqlConnection(conString);
-
-try{
-    con.open();
-    string query=$"insert into users(username,course,purchasedate) values('{user.username}','{user.course}','{user.purchasedate}')";
-    MySqlCommand command=new MySqlCommand(query,con);
-command.ExecuteNonQuery();//used for DML query -->insert,update,delete
-con.close();
-}
-catch(Exception e)
-{
-    Console.WriteLine(e.Message);
-}
-finally
-{
-    con.close();
-}
-}
-public static void DeleteUserById(int id)
-{
-    MySqlConnection con =new MySqlConnection(conString);
-
-    try{
-        con.Open();
-        string query="delete from users where userid="+id;
-        MySqlCommand command=new MySqlCommand(query,con);
-        command.ExecuteNonQuery();
-        con.close();
-    }
-    catch (Exception e)
+    public static void SaveNewUser(User user)//User=Return type,user=created object now
     {
-        Console.WriteLine(e.Message);
+        MySqlConnection con = new MySqlConnection(conString);
 
+        try
+        {
+            con.Open();
+            string query = $"insert into users(username,course,purchasedate) values('{user.username}','{user.course}','{user.purchasedate}')";
+            MySqlCommand command = new MySqlCommand(query, con);
+            command.ExecuteNonQuery();//used for DML query -->insert,update,delete
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        finally
+        {
+            con.Close();
+        }
     }
-    finally{
-        con.close();
+    public static void DeleteUserById(int id)
+    {
+        MySqlConnection con = new MySqlConnection(conString);
+
+        try
+        {
+            con.Open();
+            string query = "delete from users where userid=" + id;
+            MySqlCommand command = new MySqlCommand(query, con);
+            command.ExecuteNonQuery();
+            con.Close();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+
+        }
+        finally
+        {
+            con.Close();
+        }
     }
-}
 
 
 }
